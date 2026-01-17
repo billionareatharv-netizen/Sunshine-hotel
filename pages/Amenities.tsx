@@ -1,10 +1,24 @@
 import React from 'react';
-import * as LucideIcons from 'lucide-react';
+import { 
+  Wifi, Car, Utensils, Droplets, Zap, ShieldCheck, Coffee, Sparkles, Check 
+} from 'lucide-react';
 import { AMENITIES } from '../utils/constants';
 
-// Helper to render dynamic icons from string names
+// Map string names from constants to actual components
+const ICON_MAP: Record<string, React.ElementType> = {
+  'Wifi': Wifi,
+  'Car': Car,
+  'Utensils': Utensils,
+  'Droplets': Droplets,
+  'Zap': Zap,
+  'ShieldCheck': ShieldCheck,
+  'Coffee': Coffee,
+  'Sparkles': Sparkles
+};
+
+// Helper to render dynamic icons safely
 const DynamicIcon = ({ name, size = 24, className = "" }: { name: string; size?: number; className?: string }) => {
-  const IconComponent = (LucideIcons as any)[name];
+  const IconComponent = ICON_MAP[name];
   return IconComponent ? <IconComponent size={size} className={className} /> : null;
 };
 
@@ -42,13 +56,13 @@ const Amenities: React.FC = () => {
               Room service is available 24/7 for your convenience.
             </p>
             <ul className="space-y-2 mb-6">
-              <li className="flex items-center gap-2 text-gray-700"><LucideIcons.Check className="text-brand-gold" size={16}/> Breakfast Buffet</li>
-              <li className="flex items-center gap-2 text-gray-700"><LucideIcons.Check className="text-brand-gold" size={16}/> Lunch & Dinner</li>
-              <li className="flex items-center gap-2 text-gray-700"><LucideIcons.Check className="text-brand-gold" size={16}/> Fresh Coffee & Snacks</li>
+              <li className="flex items-center gap-2 text-gray-700"><Check className="text-brand-gold" size={16}/> Breakfast Buffet</li>
+              <li className="flex items-center gap-2 text-gray-700"><Check className="text-brand-gold" size={16}/> Lunch & Dinner</li>
+              <li className="flex items-center gap-2 text-gray-700"><Check className="text-brand-gold" size={16}/> Fresh Coffee & Snacks</li>
             </ul>
           </div>
           <div className="order-1 md:order-2 h-64 md:h-auto overflow-hidden rounded-lg shadow-xl">
-             <img src="https://picsum.photos/600/400?random=20" alt="Restaurant" className="w-full h-full object-cover" />
+             <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Restaurant" className="w-full h-full object-cover" />
           </div>
         </div>
       </div>
