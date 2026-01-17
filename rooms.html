@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms & Suites | Sunshine Hotel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#1e3a8a',
+                            gold: '#d97706',
+                            light: '#f8fafc',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+    <!-- Navbar (Same as index) -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-24">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex-shrink-0 flex items-center gap-3 group">
+                        <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center text-white font-serif font-bold text-2xl shadow-lg group-hover:bg-blue-800 transition-colors">S</div>
+                        <div class="flex flex-col">
+                            <span class="font-serif font-bold text-2xl text-brand-dark leading-none tracking-tight">Sunshine</span>
+                            <span class="text-xs text-brand-gold uppercase tracking-[0.2em] font-bold mt-1">Hotel & Stay</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Home</a>
+                    <a href="rooms.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Rooms</a>
+                    <a href="gallery.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Gallery</a>
+                    <a href="about.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">About</a>
+                    <a href="contact.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Contact</a>
+                    <a href="tel:+919876543210" class="bg-brand-dark text-white px-6 py-3 rounded-full text-sm font-bold flex items-center gap-2 hover:bg-blue-800 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">Call Now</a>
+                </div>
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-dark focus:outline-none p-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-4 pb-6 space-y-2">
+                <a href="index.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Home</a>
+                <a href="rooms.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Rooms</a>
+                <a href="gallery.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Gallery</a>
+                <a href="about.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">About</a>
+                <a href="contact.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="bg-brand-dark text-white py-24 text-center relative overflow-hidden fade-in">
+        <h1 class="font-serif text-5xl md:text-6xl font-bold mb-6 relative z-10">Our Rooms & Suites</h1>
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto px-4 relative z-10">Elegantly designed for your comfort and relaxation.</p>
+    </div>
+
+    <!-- Room List -->
+    <div class="max-w-6xl mx-auto px-4 -mt-10 relative z-20 space-y-12 pb-20">
+        <!-- Room 1 -->
+        <div class="flex flex-col lg:flex-row bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 fade-in">
+            <div class="lg:w-1/2 relative min-h-[350px]">
+                <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1200&q=80" class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            <div class="lg:w-1/2 p-8 lg:p-10 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h2 class="font-serif text-3xl font-bold text-brand-dark">Deluxe Room</h2>
+                        <div class="text-right">
+                            <div class="text-3xl font-bold text-brand-gold">₹3500</div>
+                            <div class="text-xs text-gray-400 font-medium uppercase tracking-wide">Per Night</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-8 leading-relaxed">Spacious air-conditioned room with king-size bed, work desk, and modern amenities tailored for business and leisure.</p>
+                    <ul class="grid grid-cols-2 gap-2 mb-8 text-sm text-gray-700">
+                        <li class="flex items-center gap-2">✓ AC & Wi-Fi</li>
+                        <li class="flex items-center gap-2">✓ King Bed</li>
+                        <li class="flex items-center gap-2">✓ Breakfast Inc.</li>
+                        <li class="flex items-center gap-2">✓ Smart TV</li>
+                    </ul>
+                </div>
+                <button onclick="openWhatsApp('Hi, I want to book the Deluxe Room.')" class="w-full bg-brand-dark hover:bg-blue-800 text-white font-bold py-4 px-6 rounded-xl text-center transition-colors flex items-center justify-center gap-2 shadow-lg">
+                    Book Now
+                </button>
+            </div>
+        </div>
+
+        <!-- Room 2 -->
+        <div class="flex flex-col lg:flex-row bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 fade-in">
+            <div class="lg:w-1/2 relative min-h-[350px]">
+                <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=80" class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            <div class="lg:w-1/2 p-8 lg:p-10 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h2 class="font-serif text-3xl font-bold text-brand-dark">Standard Room</h2>
+                        <div class="text-right">
+                            <div class="text-3xl font-bold text-brand-gold">₹2200</div>
+                            <div class="text-xs text-gray-400 font-medium uppercase tracking-wide">Per Night</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-8 leading-relaxed">Cozy and comfortable room perfect for budget travelers and couples. Includes all essentials.</p>
+                    <ul class="grid grid-cols-2 gap-2 mb-8 text-sm text-gray-700">
+                        <li class="flex items-center gap-2">✓ Queen Bed</li>
+                        <li class="flex items-center gap-2">✓ Free Wi-Fi</li>
+                        <li class="flex items-center gap-2">✓ Attached Bath</li>
+                        <li class="flex items-center gap-2">✓ Housekeeping</li>
+                    </ul>
+                </div>
+                <button onclick="openWhatsApp('Hi, I want to book the Standard Room.')" class="w-full bg-brand-dark hover:bg-blue-800 text-white font-bold py-4 px-6 rounded-xl text-center transition-colors flex items-center justify-center gap-2 shadow-lg">
+                    Book Now
+                </button>
+            </div>
+        </div>
+
+        <!-- Room 3 -->
+        <div class="flex flex-col lg:flex-row bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 fade-in">
+            <div class="lg:w-1/2 relative min-h-[350px]">
+                <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=80" class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            <div class="lg:w-1/2 p-8 lg:p-10 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h2 class="font-serif text-3xl font-bold text-brand-dark">Family Suite</h2>
+                        <div class="text-right">
+                            <div class="text-3xl font-bold text-brand-gold">₹5500</div>
+                            <div class="text-xs text-gray-400 font-medium uppercase tracking-wide">Per Night</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-8 leading-relaxed">Large suite with two double beds, creating a perfect space for families. Includes seating area.</p>
+                    <ul class="grid grid-cols-2 gap-2 mb-8 text-sm text-gray-700">
+                        <li class="flex items-center gap-2">✓ 2 Double Beds</li>
+                        <li class="flex items-center gap-2">✓ AC & Fridge</li>
+                        <li class="flex items-center gap-2">✓ Seating Area</li>
+                        <li class="flex items-center gap-2">✓ City View</li>
+                    </ul>
+                </div>
+                <button onclick="openWhatsApp('Hi, I want to book the Family Suite.')" class="w-full bg-brand-dark hover:bg-blue-800 text-white font-bold py-4 px-6 rounded-xl text-center transition-colors flex items-center justify-center gap-2 shadow-lg">
+                    Book Now
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
