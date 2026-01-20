@@ -21,25 +21,46 @@
             }
         }
     </script>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0"
-  }
-}
-</script>
+    <script>
+        // --- NUCLEAR FIX FOR WHITE SCREEN ---
+        (function() {
+            // 1. Force visibility
+            document.documentElement.style.opacity = "1";
+            
+            // 2. Kill all Service Workers immediately
+            if (window.navigator && navigator.serviceWorker) {
+                navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                    for(let registration of registrations) {
+                        registration.unregister();
+                    }
+                });
+            }
+            
+            // 3. Clear Caches
+            if (window.caches) {
+                caches.keys().then(function(names) {
+                    for(let name of names) caches.delete(name);
+                });
+            }
+
+            // 4. Global WhatsApp Helper
+            window.openWhatsApp = function(message) {
+                const phone = "919876543210";
+                const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+                window.open(url, '_blank');
+            };
+        })();
+    </script>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased">
+<body class="bg-slate-50 text-slate-800 antialiased" style="opacity: 1 !important; visibility: visible !important;">
 
     <!-- Navbar -->
     <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-24">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex-shrink-0 flex items-center gap-3 group">
+                    <!-- Added ?v=1 to force bypass cache -->
+                    <a href="index.html?v=1" class="flex-shrink-0 flex items-center gap-3 group">
                         <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center text-white font-serif font-bold text-2xl shadow-lg group-hover:bg-blue-800 transition-colors">S</div>
                         <div class="flex flex-col">
                             <span class="font-serif font-bold text-2xl text-brand-dark leading-none tracking-tight">Sunshine</span>
@@ -49,19 +70,19 @@
                 </div>
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Home</a>
-                    <a href="rooms.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Rooms</a>
-                    <a href="gallery.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Gallery</a>
-                    <a href="about.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">About</a>
-                    <a href="contact.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Contact</a>
+                    <a href="index.html?v=1" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Home</a>
+                    <a href="rooms.html?v=1" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Rooms</a>
+                    <a href="gallery.html?v=1" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Gallery</a>
+                    <a href="about.html?v=1" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">About</a>
+                    <a href="contact.html?v=1" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Contact</a>
                     <a href="tel:+919876543210" class="bg-brand-dark text-white px-6 py-3 rounded-full text-sm font-bold flex items-center gap-2 hover:bg-blue-800 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                         Call Now
                     </a>
                 </div>
-                <!-- Mobile Button -->
+                <!-- Mobile Button with INLINE JS -->
                 <div class="flex items-center md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-dark focus:outline-none p-2">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-600 hover:text-brand-dark focus:outline-none p-2">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                 </div>
@@ -70,11 +91,11 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
             <div class="px-4 pt-4 pb-6 space-y-2">
-                <a href="index.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Home</a>
-                <a href="rooms.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Rooms</a>
-                <a href="gallery.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Gallery</a>
-                <a href="about.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">About</a>
-                <a href="contact.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Contact</a>
+                <a href="index.html?v=1" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Home</a>
+                <a href="rooms.html?v=1" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Rooms</a>
+                <a href="gallery.html?v=1" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Gallery</a>
+                <a href="about.html?v=1" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">About</a>
+                <a href="contact.html?v=1" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Contact</a>
             </div>
         </div>
     </nav>
@@ -96,11 +117,11 @@
                 Luxury Comfort • Prime Location • Unmatched Service
             </p>
             <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                <button onclick="openWhatsApp('Hi, I want to book a stay.')" class="bg-brand-gold hover:bg-amber-600 text-white text-lg font-bold py-4 px-10 rounded-full transition-all transform hover:-translate-y-1 shadow-xl hover:shadow-amber-500/30 flex items-center justify-center gap-2">
+                <button onclick="window.openWhatsApp('Hi, I want to book a stay.')" class="bg-brand-gold hover:bg-amber-600 text-white text-lg font-bold py-4 px-10 rounded-full transition-all transform hover:-translate-y-1 shadow-xl hover:shadow-amber-500/30 flex items-center justify-center gap-2">
                     Book Your Stay 
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </button>
-                <a href="rooms.html" class="bg-white/10 backdrop-blur-md border border-white/50 hover:bg-white hover:text-brand-dark text-white text-lg font-bold py-4 px-10 rounded-full transition-all transform hover:-translate-y-1 shadow-lg flex items-center justify-center">
+                <a href="rooms.html?v=1" class="bg-white/10 backdrop-blur-md border border-white/50 hover:bg-white hover:text-brand-dark text-white text-lg font-bold py-4 px-10 rounded-full transition-all transform hover:-translate-y-1 shadow-lg flex items-center justify-center">
                     View Rooms
                 </a>
             </div>
@@ -110,7 +131,6 @@
     <!-- Features -->
     <section class="relative z-20 -mt-20 px-4 mb-20">
         <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            <!-- Feature 1 -->
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-2 text-center border border-gray-50">
                 <div class="inline-flex p-4 bg-blue-50 text-brand-dark rounded-full mb-4">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
@@ -118,7 +138,6 @@
                 <h3 class="font-bold text-gray-800 text-lg mb-1">Clean Rooms</h3>
                 <p class="text-gray-500 text-sm">Sanitized Daily</p>
             </div>
-            <!-- Feature 2 -->
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-2 text-center border border-gray-50">
                 <div class="inline-flex p-4 bg-blue-50 text-brand-dark rounded-full mb-4">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path></svg>
@@ -126,7 +145,6 @@
                 <h3 class="font-bold text-gray-800 text-lg mb-1">Free Wi-Fi</h3>
                 <p class="text-gray-500 text-sm">High Speed Internet</p>
             </div>
-            <!-- Feature 3 -->
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-2 text-center border border-gray-50">
                 <div class="inline-flex p-4 bg-blue-50 text-brand-dark rounded-full mb-4">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 1v3"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 1v3"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 1v3"></path></svg>
@@ -134,7 +152,6 @@
                 <h3 class="font-bold text-gray-800 text-lg mb-1">Restaurant</h3>
                 <p class="text-gray-500 text-sm">Multi-cuisine</p>
             </div>
-            <!-- Feature 4 -->
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-2 text-center border border-gray-50">
                 <div class="inline-flex p-4 bg-blue-50 text-brand-dark rounded-full mb-4">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -155,7 +172,7 @@
                     Located in the heart of the city, Sunshine Hotel & Stay offers a perfect blend of modern amenities and traditional hospitality. 
                     Whether you are traveling for business, leisure, or a family vacation, our dedicated team ensures a memorable stay.
                 </p>
-                <a href="about.html" class="inline-flex items-center text-brand-dark font-bold hover:text-brand-gold transition-colors border-b-2 border-brand-dark pb-1 hover:border-brand-gold">
+                <a href="about.html?v=1" class="inline-flex items-center text-brand-dark font-bold hover:text-brand-gold transition-colors border-b-2 border-brand-dark pb-1 hover:border-brand-gold">
                     Read Our Story 
                     <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
@@ -167,8 +184,81 @@
         </div>
     </section>
 
+    <!-- Featured Rooms Section -->
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-brand-gold font-bold uppercase tracking-wider text-sm">Accommodation</span>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-dark mt-2">Our Featured Rooms</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Room 1: Deluxe -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col h-full">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1200&q=80" alt="Deluxe Room" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-brand-dark px-4 py-2 font-bold rounded-lg shadow-sm">
+                            ₹3500 <span class="text-xs font-normal">/ night</span>
+                        </div>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col">
+                        <h3 class="font-serif text-2xl font-bold text-brand-dark mb-3">Deluxe Room</h3>
+                        <p class="text-gray-600 mb-6 text-sm line-clamp-2 leading-relaxed">Spacious air-conditioned room with king-size bed and modern amenities.</p>
+                        <div class="mt-auto pt-6 border-t border-gray-100 flex flex-col gap-3">
+                            <a href="room-details.html?id=deluxe&v=1" class="w-full block text-center bg-gray-50 hover:bg-brand-dark hover:text-white text-gray-800 font-bold py-3 rounded-xl transition-colors">View Details</a>
+                            <button onclick="window.openWhatsApp('Hi, I want to book the Deluxe Room.')" class="w-full block text-center bg-brand-gold text-white font-bold py-3 rounded-xl hover:bg-amber-600 transition-colors">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Room 2: Standard -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col h-full">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=80" alt="Standard Room" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-brand-dark px-4 py-2 font-bold rounded-lg shadow-sm">
+                            ₹2200 <span class="text-xs font-normal">/ night</span>
+                        </div>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col">
+                        <h3 class="font-serif text-2xl font-bold text-brand-dark mb-3">Standard Room</h3>
+                        <p class="text-gray-600 mb-6 text-sm line-clamp-2 leading-relaxed">Cozy and comfortable room perfect for budget travelers and couples.</p>
+                        <div class="mt-auto pt-6 border-t border-gray-100 flex flex-col gap-3">
+                            <a href="room-details.html?id=standard&v=1" class="w-full block text-center bg-gray-50 hover:bg-brand-dark hover:text-white text-gray-800 font-bold py-3 rounded-xl transition-colors">View Details</a>
+                            <button onclick="window.openWhatsApp('Hi, I want to book the Standard Room.')" class="w-full block text-center bg-brand-gold text-white font-bold py-3 rounded-xl hover:bg-amber-600 transition-colors">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Room 3: Family -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col h-full">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=80" alt="Family Suite" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-brand-dark px-4 py-2 font-bold rounded-lg shadow-sm">
+                            ₹5500 <span class="text-xs font-normal">/ night</span>
+                        </div>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col">
+                        <h3 class="font-serif text-2xl font-bold text-brand-dark mb-3">Family Suite</h3>
+                        <p class="text-gray-600 mb-6 text-sm line-clamp-2 leading-relaxed">Large suite with two double beds, creating a perfect space for families.</p>
+                        <div class="mt-auto pt-6 border-t border-gray-100 flex flex-col gap-3">
+                            <a href="room-details.html?id=family&v=1" class="w-full block text-center bg-gray-50 hover:bg-brand-dark hover:text-white text-gray-800 font-bold py-3 rounded-xl transition-colors">View Details</a>
+                            <button onclick="window.openWhatsApp('Hi, I want to book the Family Suite.')" class="w-full block text-center bg-brand-gold text-white font-bold py-3 rounded-xl hover:bg-amber-600 transition-colors">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="rooms.html?v=1" class="inline-flex items-center gap-2 text-brand-dark font-bold hover:text-brand-gold transition-colors text-lg">
+                    View All Accommodation 
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- WhatsApp Float -->
-    <button onclick="openWhatsApp('Hi, I need help.')" class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-transform hover:scale-110 flex items-center justify-center gap-2">
+    <button onclick="window.openWhatsApp('Hi, I need help.')" class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-transform hover:scale-110 flex items-center justify-center gap-2">
         <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
         <span class="hidden md:inline font-semibold">Chat with Us</span>
     </button>
@@ -184,10 +274,10 @@
                 <div>
                     <h4 class="text-lg font-bold mb-4 border-b border-gray-700 pb-2 inline-block">Quick Links</h4>
                     <ul class="space-y-3">
-                        <li><a href="rooms.html" class="text-gray-400 hover:text-brand-gold transition-colors">Our Rooms</a></li>
-                        <li><a href="gallery.html" class="text-gray-400 hover:text-brand-gold transition-colors">Photo Gallery</a></li>
-                        <li><a href="about.html" class="text-gray-400 hover:text-brand-gold transition-colors">About Us</a></li>
-                        <li><a href="contact.html" class="text-gray-400 hover:text-brand-gold transition-colors">Contact Us</a></li>
+                        <li><a href="rooms.html?v=1" class="text-gray-400 hover:text-brand-gold transition-colors">Our Rooms</a></li>
+                        <li><a href="gallery.html?v=1" class="text-gray-400 hover:text-brand-gold transition-colors">Photo Gallery</a></li>
+                        <li><a href="about.html?v=1" class="text-gray-400 hover:text-brand-gold transition-colors">About Us</a></li>
+                        <li><a href="contact.html?v=1" class="text-gray-400 hover:text-brand-gold transition-colors">Contact Us</a></li>
                     </ul>
                 </div>
                 <div>

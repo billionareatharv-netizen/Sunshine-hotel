@@ -9,6 +9,7 @@ body {
     font-family: 'Lato', sans-serif;
     -webkit-font-smoothing: antialiased;
     color: #1e293b;
+    opacity: 1 !important; /* Force visibility */
 }
 
 h1, h2, h3, h4, h5, h6 {

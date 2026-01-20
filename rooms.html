@@ -21,14 +21,34 @@
             }
         }
     </script>
+    <script>
+        (function() {
+            document.documentElement.style.opacity = "1";
+            window.openWhatsApp = function(message) {
+                const phone = "919876543210";
+                const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+                window.open(url, '_blank');
+            };
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function(regs) {
+                    for(let reg of regs) reg.unregister();
+                });
+            }
+            if ('caches' in window) {
+                caches.keys().then(function(names) {
+                    for(let name of names) caches.delete(name);
+                });
+            }
+        })();
+    </script>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased">
-    <!-- Navbar (Same as index) -->
+<body class="bg-slate-50 text-slate-800 antialiased" style="opacity: 1 !important; visibility: visible !important;">
+    <!-- Navbar -->
     <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-24">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex-shrink-0 flex items-center gap-3 group">
+                    <a href="index.html?v=1" class="flex-shrink-0 flex items-center gap-3 group">
                         <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center text-white font-serif font-bold text-2xl shadow-lg group-hover:bg-blue-800 transition-colors">S</div>
                         <div class="flex flex-col">
                             <span class="font-serif font-bold text-2xl text-brand-dark leading-none tracking-tight">Sunshine</span>
@@ -36,28 +56,31 @@
                         </div>
                     </a>
                 </div>
+                <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Home</a>
-                    <a href="rooms.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Rooms</a>
-                    <a href="gallery.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Gallery</a>
-                    <a href="about.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">About</a>
-                    <a href="contact.html" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Contact</a>
+                    <a href="index.html?v=1" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Home</a>
+                    <a href="rooms.html?v=1" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Rooms</a>
+                    <a href="gallery.html?v=1" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Gallery</a>
+                    <a href="about.html?v=1" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">About</a>
+                    <a href="contact.html?v=1" class="nav-link text-sm font-bold uppercase tracking-wide text-gray-500 hover:text-brand-dark transition-colors border-b-2">Contact</a>
                     <a href="tel:+919876543210" class="bg-brand-dark text-white px-6 py-3 rounded-full text-sm font-bold flex items-center gap-2 hover:bg-blue-800 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">Call Now</a>
                 </div>
+                <!-- Mobile Button -->
                 <div class="flex items-center md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-dark focus:outline-none p-2">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-600 hover:text-brand-dark focus:outline-none p-2">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                 </div>
             </div>
         </div>
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
             <div class="px-4 pt-4 pb-6 space-y-2">
-                <a href="index.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Home</a>
-                <a href="rooms.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Rooms</a>
-                <a href="gallery.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Gallery</a>
-                <a href="about.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">About</a>
-                <a href="contact.html" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Contact</a>
+                <a href="index.html?v=1" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Home</a>
+                <a href="rooms.html?v=1" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Rooms</a>
+                <a href="gallery.html?v=1" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Gallery</a>
+                <a href="about.html?v=1" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">About</a>
+                <a href="contact.html?v=1" class="block px-4 py-4 rounded-xl text-base font-bold text-gray-600 hover:bg-gray-50">Contact</a>
             </div>
         </div>
     </nav>
@@ -92,9 +115,14 @@
                         <li class="flex items-center gap-2">✓ Smart TV</li>
                     </ul>
                 </div>
-                <button onclick="openWhatsApp('Hi, I want to book the Deluxe Room.')" class="w-full bg-brand-dark hover:bg-blue-800 text-white font-bold py-4 px-6 rounded-xl text-center transition-colors flex items-center justify-center gap-2 shadow-lg">
-                    Book Now
-                </button>
+                <div class="flex gap-4">
+                    <a href="room-details.html?id=deluxe&v=1" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold py-4 px-6 rounded-xl text-center transition-colors">
+                        View Details
+                    </a>
+                    <button onclick="window.openWhatsApp('Hi, I want to book the Deluxe Room.')" class="flex-1 bg-brand-dark hover:bg-blue-800 text-white font-bold py-4 px-6 rounded-xl text-center transition-colors flex items-center justify-center gap-2 shadow-lg">
+                        Book Now
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -120,9 +148,14 @@
                         <li class="flex items-center gap-2">✓ Housekeeping</li>
                     </ul>
                 </div>
-                <button onclick="openWhatsApp('Hi, I want to book the Standard Room.')" class="w-full bg-brand-dark hover:bg-blue-800 text-white font-bold py-4 px-6 rounded-xl text-center transition-colors flex items-center justify-center gap-2 shadow-lg">
-                    Book Now
-                </button>
+                <div class="flex gap-4">
+                    <a href="room-details.html?id=standard&v=1" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold py-4 px-6 rounded-xl text-center transition-colors">
+                        View Details
+                    </a>
+                    <button onclick="window.openWhatsApp('Hi, I want to book the Standard Room.')" class="flex-1 bg-brand-dark hover:bg-blue-800 text-white font-bold py-4 px-6 rounded-xl text-center transition-colors flex items-center justify-center gap-2 shadow-lg">
+                        Book Now
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -148,9 +181,14 @@
                         <li class="flex items-center gap-2">✓ City View</li>
                     </ul>
                 </div>
-                <button onclick="openWhatsApp('Hi, I want to book the Family Suite.')" class="w-full bg-brand-dark hover:bg-blue-800 text-white font-bold py-4 px-6 rounded-xl text-center transition-colors flex items-center justify-center gap-2 shadow-lg">
-                    Book Now
-                </button>
+                <div class="flex gap-4">
+                    <a href="room-details.html?id=family&v=1" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold py-4 px-6 rounded-xl text-center transition-colors">
+                        View Details
+                    </a>
+                    <button onclick="window.openWhatsApp('Hi, I want to book the Family Suite.')" class="flex-1 bg-brand-dark hover:bg-blue-800 text-white font-bold py-4 px-6 rounded-xl text-center transition-colors flex items-center justify-center gap-2 shadow-lg">
+                        Book Now
+                    </button>
+                </div>
             </div>
         </div>
     </div>
